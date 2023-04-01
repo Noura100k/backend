@@ -11,8 +11,8 @@ prediction='hello Noura'
 app = Flask(__name__)
 
 # Ignore static folder in development mode.
-if MODE == "development":
-    app = Flask(__name__,)
+#if MODE == "development":
+#  app = Flask(__name__,)
 
 
 @app.route('/',methods=['GET','POST'])
@@ -33,12 +33,7 @@ def classify():
     else:
         return "get from else"
        
-@app.route('/<path:path>')
-def index(path=''):
-    if MODE == 'development':
-        return proxyRequest(DEV_SERVER_URL, path)
-    else:
-        return render_template("index.html")      
+     
 
 if __name__=='__main__':
     app.run(debug=True)
