@@ -17,18 +17,21 @@ if MODE == "development":
 
 @app.route('/',methods=['GET','POST'])
 def classify():
-    try:
-        if request.method == 'POST':
-            if (request.files['photo']): 
+    if request.method == 'POST':
+        if 'photo' in request.files: 
+            try:
+                #file = request.files['photo'].seek(0)
+                #file = Image.open(request.files['photo'].stream)
                 file = request.files['photo']
+                print(type(file))
                 result = classifyImage(file)
-                print('Model classification: ' + result)   
-                return "test 1"     
-      
-    except Exception as e:
-        pass
-        print("Exception---->"+e)
-        return "test 2"
+                print('Model classification: ' + result) 
+                return "post"
+            except Exception as e:
+                print(e)
+                return "get from Exception"
+    else:
+        return "get from else"
        
 @app.route('/<path:path>')
 def index(path=''):
